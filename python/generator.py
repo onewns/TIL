@@ -8,7 +8,7 @@ def get_natural_number(n: int):
         yield num ** 2
 
 gen = get_natural_number(10)
-print(gen)
+print(list(gen)[0])
 for _ in range(10):
     print(next(gen), end="의 제곱은 ")
     print(next(gen))
