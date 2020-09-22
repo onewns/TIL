@@ -14,14 +14,14 @@ b: int = 1
     
 # a 라는 파라미터는 인티저가 와야하며 return 값으로 bool이 온다는 의미
 def fn(a:int) -> bool:
-    `````
+`````
 ```
 
 
 
 ### List Comprehension
 
-```python
+​```python
 [n*2 for n in range(1,11) if n % 2 == 1]
 # 1 이상 11 미만 정수에 대해 n 을 2로 나눈 나머지가 1 이면 n에 2를 곱한다
 
@@ -118,3 +118,12 @@ print(tuple(enumerate(tup)))
 >>> ((0, 11), (1, 12), (2, 13), (3, 14), (4, 15))
 ```
 
+
+
+### print
+
+> f 스트링을 활용하자!
+
+
+
+### locals()
