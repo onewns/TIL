@@ -1,4 +1,5 @@
 # leetcode 1
+from typing import *
 def twoSum(self, nums: List[int], target: int) -> List[int]:
 
     # my style 5356ms 15MB

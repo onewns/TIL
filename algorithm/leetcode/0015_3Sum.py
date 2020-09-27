@@ -1,5 +1,5 @@
 # leetcode 15
-
+from typing import *
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         # use two porinter 836ms 17.4MB
