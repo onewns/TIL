@@ -217,3 +217,54 @@ FROM 테이블명1, 테이블명2,
 | 5    | 1: 장학내역<br />2: 장학금<br />3: 'NUM'                     | 1: 장학내역<br />2: 장학금<br />3: NUM                       |      |
 | 6    | 1: 학과<br />2: 장학내역<br />3: SUM(장학금)                 |                                                              |      |
 
+
+
+## Section 077 A 프로시저(Procedure)
+
+> 절차형 SQL을 활용 특정 기능을 수행하는 일종의 트랜잭션 언어
+
+### 프로시저 생성
+
+- CREATE PROCEDURE 명령어 사용
+
+
+
+### Section 078 B 트리거(Trigger)
+
+
+
+
+
+### 예상 문제 은행
+
+| 번호 | 답                                                           | 정답                                                         | 비고                                                         |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1    | DROP TABLE 직원;                                             |                                                              |                                                              |
+| 2    | create table 직원 <br />(사번 char(15),<br />이름 char(4) not null,<br />전화번호 char(20),<br />부서번호 char(4), <br />경력 INT, <br />기본급 INT, <br />primary key(사번),<br />foreign key(부서번호) references 부서(부서번호),<br />check (기본금 >= 1000000),<br />unique(전화번호)); | create table 직원 <br />(사번 char(15),<br />이름 char(4) not null,<br />전화번호 char(20),<br />부서번호 char(4), <br />경력 INT, <br />기본급 INT, <br />primary key(사번),<br />unique(전화번호),<br />foreign key(부서번호) references 부서(부서번호),<br />check (기본금 >= 1000000)); |                                                              |
+| 3    | select * from 사원;                                          |                                                              |                                                              |
+| 4    | select distinct 이름 from 자격증<br />where 경력 >= 3 ;      |                                                              |                                                              |
+| 5    | select 이름, 재직년도, 기본급 from 사원<br />where 이름 not in (<br />select distinct이름 from 자격증) ; | select 이름, 재직년도, 기본급 from 사원<br />where 이름 not in (<br />select 이름 from 자격증) ; |                                                              |
+| 6    | select 이름<br />from 자격증<br />groupby 이름               | select 이름<br />from 자격증<br />group by 이름<br />having count(*) >= 2; |                                                              |
+| 7    | create view 3학년학생<br />(학번,<br />주민등록번호,<br />이름,<br />학년,<br />전화번호,<br />주소,) | create view 3학년학생<br />as select *<br />from 학생<br />where 학년 = 3<br />with check option; | check option                                                 |
+| 8    | create view                                                  | create view 강좌교수<br />(강좌명,<br />강의실,<br />수강제한인원,<br />교수이름)<br />as select <br />강좌명,강의실,수강인원,이름<br />from 강좌,교수<br />where 강좌.교수번호 = 교수.교수번호; | 속성명을 그대로 가져오지 않을때는 뷰 옆에 속성명 지정        |
+| 9    | 1.<br />2.<br />3.grant<br />4.<br />5.cascade               | 1.commit<br />2.rollback<br />3.grant<br />4.revoke<br />5.cascade | 1.commit: db에 반영<br />2.rollback: db 되돌리기<br />3.grant: 권한 주기<br />4.revoke: 권한 뻇기<br />5.cascade: 연쇄적 권한 삭제 |
+| 10   | grant                                                        | grant <br />select on 강좌 to 홍길동                         | 명령어 보기                                                  |
+| 11   | grant * on 학생 to 홍길동                                    | grant all on 학생<br />to 홍길동<br />with grant option;     | grant option 보기                                            |
+| 12   | revoke insert on 교수<br />to 박문수;                        | revoke insert on 교수<br />from 박문수;                      | revoke 는 to가 아니라 from                                   |
+| 13   | revoke select on 수강<br />from 박문수 cascade option;       | revoke select on 수강<br />from 박문수 cascade;              | 박문수에게 부여된 권한 유지<br />다른사람 부여 권한만 삭제<br />revoke grant option for select on 수강 from 박문수; |
+| 14   | delete from 상품<br />where 제품코드 = 'P-20';<br /><br />insert into 상품 values<br />(제품코드 = "P-20",<br />상품명 = "PLAYER",<br />단가 = 8800,<br />제조경비 = 6600); | delete from 상품<br />where 제품코드 = 'P-20';<br /><br />insert into 상품 values<br />("P-20",<br />"PLAYER",<br />8800,<br />6600); | values 는 그냥 튜플로 입력                                   |
+| 15   | select 상호, 총액<br />from 거래내역<br />where              | select 상호, 총액<br />from 거래내역<br />where 총액 in (<br />select max(총액)<br />from 거래내역); | max 함수 보자                                                |
+| 16   | 1.200<br />2. 3<br />3. 50                                   | 1.200<br />2. 3<br />3. 1                                    | distinct                                                     |
+| 17   | 1. 송윤아<br />2. 24<br />3. 사원                            |                                                              |                                                              |
+| 18   | 학번이 3글자 이며 S로 시작한다                               |                                                              |                                                              |
+| 19   | 1. 2<br />2. 2<br />3. 4                                     |                                                              | rank() 함수는 공동순위를 반영                                |
+| 20   | 1. 장학내역<br />2. 학과<br />3. average(장학금)             | 1. 장학내역<br />2. 학과<br />3. avg(장학금)                 | group by cube 잘 모르겠음                                    |
+| 21   | 1. = 60<br />2. 지원학과 ASC, 점수 DESC                      | 1. 59<br />2. 지원학과 ASC, 점수 DESC                        | 1은 될거 같은데                                              |
+| 22   | create column<br />                                          | alter tabe<br />add                                          | 테이별 변경은 alter<br />컬럼 추가는 add                     |
+| 23   | `____`                                                       | %신%                                                         | like 공부                                                    |
+| 24   | 15000                                                        |                                                              |                                                              |
+| 25   | from<br />update<br />where                                  | update<br />set<br />where                                   | update는 set                                                 |
+| 26   | in char<br />부서명 = deptName<br /><br />%NOTFOUND<br />avgSalary | in 직원.부서명%type<br />부서명 = deptName<br />salaryVar<br />salaryCur%notfound<br />avgSalary | 프로시저 한번 더 보기                                        |
+| 27   | FUNC_GEN(<br />입시명부.등록번호,<br />입시명부.학과)<br /><br />학과 = b<br /><br />return code | FUNC_GEN(<br />등록번호,<br />학과)<br /><br />학과 = b<br /><br />return code | 사용자 정의 함수                                             |
+| 28   |                                                              | 63                                                           | dbms_output.put_line 잘 모름                                 |
+
