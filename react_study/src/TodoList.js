@@ -1,18 +1,46 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-export default function TodoList() {
-  const [todos,setTodos] = useState([]);
-  const onClick = () => {
-    import('./Todo.js').then(({ Todo }) => {
-      const position = todos.length + 1;
-      const newTodo = <Todo Key={position} title={`할 일 ${position}`}/>;
-      setTodos([...todos,newTodo])
+class TodoList extends React.Component {
+  state = {desc:'', currentId: 1, todoList: []};
+  onAdd = () => {
+    const {desc, currentId, todoList } = this.state;
+    const todo = {id:currentId, desc};
+    this.setState({
+      currentId: currentId + 1,
+      todoList: [...todoList,todo],
     });
   };
-  return (
-    <div>
-      <button onClick={onClick}>할 일 추가</button>
-      {todos}
-    </div>
-  )
+  onDelete = e => {
+    const { todoList } = this.state;
+    const id = Number(e.target.dataset.id);
+    const newTodoList = todoList.filter(todo => todo.id !== id);
+    this.setState({ todoList: newTodoList });
+  };
+  onSaveToServer = () => {};
+  onChangeDesc = e => {
+    const desc = e.target.value;
+    this.setState({ desc });
+  };
+  render() {
+    const { desc, todoList } = this.state;
+    console.log(todoList)
+    return (
+      <div>
+        <h3>할 일 목록</h3>
+        <ul>
+          {todoList.map(todo => (
+            <li key={todo.id}>
+              <span>{todo.desc}</span>
+              <button data-id={todo.id} onClick={this.onDelete}>삭제</button>
+            </li>
+          ))}
+        </ul>
+        <input type="text" value={desc} onChange={this.onChangeDesc}/>
+        <button onClick={this.onAdd}>추가</button>
+        <button onClick={this.onSaveToServer}>저장</button>
+      </div>
+    )
+  }
 }
+
+export default TodoList

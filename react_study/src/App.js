@@ -14,12 +14,14 @@ export default function App() {
         <Link to="/photo">사진</Link> <br/>
         <Link to="/rooms">방 소개</Link> <br/>
         <Link to="/profile">프로필</Link> <br/>
+        <Link to="/todolist">할일</Link> <br/>
         {/* exact 의 의미
         exact 를 쓰지 않으면 /로 시작하는 경우 항상 렌더링 */}
         <Route exact path="/" component={Home}/>
         <Route path="/photo" component={Photo}/>
         <Route path="/rooms" component={Rooms}/>
         <Route path="/profile" component={Profile}/>
+        <Route path="/todolist" component={TodoList}/>
       </div>
     </BrowserRouter>
   );
