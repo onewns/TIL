@@ -1,47 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import {BrowserRouter, Route, Link} from 'react-router-dom'
 
 import TodoList from './TodoList.js'
-
-
+import Rooms from './Rooms'
+import Profile from './Profile'
 
 export default function App() {
-  const [pageName, setPageName] = useState('');
-  useEffect(() => {
-    window.onpopstate = event => {
-      setPageName(event.state);
-    };
-  }, []);
-  const onClick1 = () => {
-    const pageName = 'page1';
-    window.history.pushState(pageName, '', '/page1');
-    setPageName(pageName);
-  }
-  const onClick2 = () => {
-    const pageName = 'page2';
-    window.history.pushState(pageName, '', '/page2');
-    setPageName(pageName);
-  }
   return (
-    <div className="App">
-      <TodoList/>
-      <div>
-        <button onClick={onClick1}>page1</button>
-        <button onClick={onClick2}>page2</button>
-        {!pageName && <Home/>}
-        {pageName === 'page1' && <Page1/>}
-        {pageName === 'page2' && <Page2/>}
+    <BrowserRouter>
+      <div style={{padding:20, botder:`5px solid grey`}}>
+        <Link to="/">홈</Link> <br/>
+        <Link to="/photo">사진</Link> <br/>
+        <Link to="/rooms">방 소개</Link> <br/>
+        <Link to="/profile">프로필</Link> <br/>
+        {/* exact 의 의미
+        exact 를 쓰지 않으면 /로 시작하는 경우 항상 렌더링 */}
+        <Route exact path="/" component={Home}/>
+        <Route path="/photo" component={Photo}/>
+        <Route path="/rooms" component={Rooms}/>
+        <Route path="/profile" component={Profile}/>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
-function Home() {
+function Home({ match }) {
   return <h2>여기는 홈페이지</h2>
 }
-function Page1() {
-  return <h2>여기는 1</h2>
-}
-function Page2() {
-  return <h2>여기는 2</h2>
+function Photo({ match}) {
+  return <h2>여기는 사진</h2>
 }
