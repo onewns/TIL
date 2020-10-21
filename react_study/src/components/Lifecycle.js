@@ -1,20 +1,12 @@
-# React
+import React,{useState, useEffect} from 'react'
+import styled from 'styled-components'
 
+const Box = styled.div`
+  height:300px;
+  width:300px;
+  background-color:black;
+`
 
-
-## Lifecycle
-
-useEffect를 사용해서 구현
-
-```react
-// useEffect 의 기본구성
-useEffect((parms) => {
-    실행할함수,
-    지겨보고 있을 값 // 배열의 형태로 추가
-})
-
-
-// 예시
 const NumOfUpdate = () => {
   const [count1,setCount1] = useState(0);
   const [count2,setCount2] = useState(0);
@@ -38,5 +30,3 @@ const NumOfUpdate = () => {
 }
 
 export default NumOfUpdate
-```
-
