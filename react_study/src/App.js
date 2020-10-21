@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter, Route, Link} from 'react-router-dom'
+import {BrowserRouter, Route, Link } from 'react-router-dom'
 
 import TodoList from './components/TodoList'
 import Rooms from './components/Rooms'
 import Profile from './components/Profile'
 import Lifecycle from './components/Lifecycle'
+import PropsExercise from './components/PropsExercise'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Link to="/profile">프로필</Link> <br/>
         <Link to="/todolist">할일</Link> <br/>
         <Link to="/lifecycle">LifeCycle</Link><br/>
+        <Link to="/PropsExercise">PropsExercise</Link>
         {/* exact 의 의미
         exact 를 쓰지 않으면 /로 시작하는 경우 항상 렌더링 */}
         <Route exact path="/" component={Home}/>
@@ -25,6 +27,7 @@ export default function App() {
         <Route path="/profile" component={Profile}/>
         <Route path="/todolist" component={TodoList}/>
         <Route path="/lifecycle" component={Lifecycle}/>
+        <Route path="/PropsExercise" component={PropsExercise}/>
       </div>
     </BrowserRouter>
   );
