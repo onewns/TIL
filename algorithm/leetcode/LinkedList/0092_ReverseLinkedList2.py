@@ -1,12 +1,14 @@
 # Definition for singly-linked list.
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0, n=None):
         self.val = val
-        self.next = next
-    def __
+        self.next = n
+
+
 class Solution:
     # my style 32ms 14.3MB
-    def reverseBetweenMY(self, head: ListNode, m: int, n: int) -> ListNode:
+    @staticmethod
+    def reverse_between_my(self, head: ListNode, m: int, n: int) -> ListNode:
         cnt = 1
         pre = ph = ListNode()
         rev = None
@@ -25,11 +27,12 @@ class Solution:
         return pre.next
 
     # use loop 24ms 14.1MB
-    def reverseBetween(self, head: ListNode, m: int, n: int) -> ListNode:
+    @staticmethod
+    def reverse_between(self, head: ListNode, m: int, n: int) -> ListNode:
         if not head or n == m:
             return head
 
-        root = start = ListNode(None)
+        root = start = ListNode(0)
         root.next = head
 
         for _ in range(m-1):
