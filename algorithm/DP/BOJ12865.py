@@ -2,28 +2,6 @@ import sys
 sys.stdin = open('12865.txt', 'r')
 
 
-# def comb(now, end, weight, value): # 조합사용
-#     global ans
-#     if now == end:
-#         ans = max(ans, value)
-#         return
-#     if weight == limit_weight:
-#         ans = max(ans, value)
-#         return
-#     if weight + items[now][0] <= limit_weight:
-#         comb(now + 1, end, weight + items[now][0], value + items[now][1])
-#     comb(now + 1, end, weight, value)
-#
-#
-# ans = 0
-# item_num, limit_weight = map(int, input().split())
-# items = []
-# for _ in range(item_num):
-#     items.append(tuple(map(int, input().split())))
-# comb(0, item_num, 0, 0)
-# print(ans)
-
-
 def knapsack(): # 배낭문제
     pack = [] # 테이블
     for item_num in range(len(items) + 1): # 물건이 하나씩 추가되는 상황
