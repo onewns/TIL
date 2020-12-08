@@ -11,7 +11,7 @@ def knapsack(): # 배낭문제
                 pack[item_num].append(0) # 당연히 값은 0
             elif items[item_num - 1][0] <= weight: # 새로 추가된 물건이 현재 가방 최대 용량보다 작거나 같으면
                 pack[item_num].append(max( # 비교
-                    # 새로 추가된 물건의 가치 + 물건이 새로 추가되며 남은 용량에 해당하는 최대값(물거니 없을때)
+                    # 새로 추가된 물건의 가치 + 물건이 새로 추가되며 남은 용량에 해당하는 최대값(물건이 없을때)
                     items[item_num-1][1] + pack[item_num-1][weight - items[item_num - 1][0]],
                     # 새로 추가된 물건을 안 넣은 상황(물건이 하나 없는 상태에서 해당 용량의 값)
                     pack[item_num - 1][weight]
