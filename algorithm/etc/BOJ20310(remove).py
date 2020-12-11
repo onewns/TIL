@@ -1,6 +1,6 @@
 import sys
 sys.stdin = open("../input.txt", 'r')
-# n이 커지면 deque를 쓴게 훨씬 빠름 n^2 인것은 같으나 상수항이 다른듯
+# n이 커지면 del 쓴게 훨씬 빠름 n^2 인것은 같으나 상수항이 다른듯
 
 
 def thanos(arr):
