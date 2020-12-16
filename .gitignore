@@ -312,5 +312,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-algorithm/**/*.txt
+input.txt
 # End of https://www.toptal.com/developers/gitignore/api/django,windows,vscode,pycharm,react,vue
