@@ -126,4 +126,8 @@ print(tuple(enumerate(tup)))
 
 
 
-### locals()
+### in 연산자의 시간복잡도
+
+1. list, tuple => 순회하면서 확인 O(n)
+2. dictionary, set => 내부적으로 hash를 사용하기 때문에 O(1)
+   but, 해시가 성능이 떨어진 경우 O(n)
