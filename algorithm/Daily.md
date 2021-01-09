@@ -178,7 +178,8 @@
    - 퀵소트를 사용했으나 메모리 초과가 발생
    - 파이썬 내부의 팀소트를 사용해도 메모리 초과가 발생
    - 카운팅소트를 이용 => 시간초과 발생 => sys.stdin.readline() 으로 해결
-2. ㅇㄻㅇㄴㄹㅇㄴ
+2. BOJ_11727
+   - dp, memoization 기초
 
 - 정렬
 
@@ -227,6 +228,3 @@
         quick_sort(start, pivot)
         quick_sort(pivot+1, end)
     ```
-
-    
-
