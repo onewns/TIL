@@ -169,3 +169,64 @@
      4. 이미 계산된 가중치(dist)와 새롭게 계산되는 가중치(cur_time + weight)를 비교
      5. 새롭게 계산되는 가중치가 작으면 dist를 최신화 후 해당 노드를 새로운 가중치와 함께 hq에 삽입
      6. hq가 없어질때 까지 2~5를 반복
+
+
+
+### 2021_01_09
+
+1. BOJ_10989
+   - 퀵소트를 사용했으나 메모리 초과가 발생
+   - 파이썬 내부의 팀소트를 사용해도 메모리 초과가 발생
+   - 카운팅소트를 이용 => 시간초과 발생 => sys.stdin.readline() 으로 해결
+2. ㅇㄻㅇㄴㄹㅇㄴ
+
+- 정렬
+
+  | 알고리즘 | 평균수행시간 | 최악수행시간 | 알고리즘기법 |                             비고                             |
+  | -------- | ------------ | ------------ | ------------ | :----------------------------------------------------------: |
+  | 버블     | n^2          | n^2          | 비교, 교환   |                쉬운데 성능이 너무 별로라 안씀                |
+  | 카운팅   | n + k        | n + k        | 교환 x       | n이 비교적 작을 때만 가능 속도는 빠른편 (k = 리스트중 가장 큰 값) |
+  | 선택     | n^2          | n^2          | 비교, 교환   |              교환 횟수가 버블, 삽입보다는 작음               |
+  | 퀵       | n log n      | n^2          | 분할 정복    |                     평균적으로 가장 빠름                     |
+  | 삽입     | n^2          | n^2          | 비교, 교환   |                    n이 작으면 매우 효과적                    |
+  | 병합     | n log n      | n log n      | 분할 정복    |                                                              |
+
+  - 퀵정렬 (pivot == mid 인 방법)
+
+    ```python
+    """
+    조건 1. left에 위치한 원소는 무조건 pivot보다 작아야함
+    조건 2. right에 위치한 원소는 무조건 pivot보다 크거나 같아야함
+    조건 3. pivot이 가리키는 원소는 계속 같아야 함
+    조건 4. left 와 right가 만나는 위치가 pivot의 원소가 위치해야 하는 인덱스
+    """
+    
+    def quick_sort(start, end):
+        if start >= end:  # 배열의 원소가 1개 이하면 
+            return  # 함수 종료
+        left, right = start, end - 1
+        pivot = (left + right) // 2  # 피벗을 정함
+        while left < right:
+            # 조건 1에 부합하면 다음 인덱스로 이동
+            while arr[left] < arr[pivot] and left < right:
+                left += 1
+            # 조건 2에 부합하면 다음 인덱스로 이동
+            while arr[right] >= arr[pivot] and left < right:
+                right -= 1
+            # left와 right를 swap해야 함
+            if left < right:
+                # left는 조건 1에 의해 pivot을 넘어갈 수 없음
+                if left == pivot:
+                    # 자리가 부족하므로 pivot의 위치를 변경
+                    pivot = right
+                arr[left], arr[right] = arr[right], arr[left]
+        # pivot의 원소 위치 최신화
+        arr[pivot], arr[right] = arr[right], arr[pivot]
+        # 최종적으로 left == right == pivot이 되야함
+        pivot = right
+        quick_sort(start, pivot)
+        quick_sort(pivot+1, end)
+    ```
+
+    
+
