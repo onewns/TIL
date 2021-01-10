@@ -239,3 +239,10 @@
         quick_sort(start, pivot)
         quick_sort(pivot+1, end)
     ```
+
+
+
+### 2021_01_10
+
+1. BOJ_14225
+   - 쉬운 brute force
