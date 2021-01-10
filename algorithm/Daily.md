@@ -246,3 +246,5 @@
 
 1. BOJ_14225
    - 쉬운 brute force
+2.  BOJ_14627
+   - binary search
