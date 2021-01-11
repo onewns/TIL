@@ -248,3 +248,13 @@
    - 쉬운 brute force
 2.  BOJ_14627
    - binary search
+
+
+
+### 2021_01_11
+
+1. BOJ_1181
+
+   - 문자열 길이, 사전순 정렬 => `lambda x: (len(x), x)`
+
+   
