@@ -268,3 +268,10 @@
    - binary search
    - dictionary
    - two pointer
+
+
+
+### 2021_01_14
+
+1. BOJ_1629
+   - 거듭제곱을 많이 해야 하는 경우 분할 정복을 사용 => log n 에 가능
