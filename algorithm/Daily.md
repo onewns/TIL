@@ -305,3 +305,5 @@
 
 1. BOJ_5710
    - binary search
+2. BOJ_2579
+   - dp
