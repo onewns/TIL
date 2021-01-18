@@ -1,5 +1,5 @@
 const fs = require('fs');
-let input = fs.readFileSync('../input.txt').toString().split('\n');
+let input = fs.readFileSync('input.txt').toString().split('\n');
 let tc = input[0]
 for (let i = 1; i <= tc; i++) {
     const [n, m] = input[i].split(' ').map((x) => +x);
