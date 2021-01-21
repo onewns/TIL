@@ -20,3 +20,19 @@
    - 블록조심
 3. BOJ_2309
    - BOJ 풀때 split('\r\n') => split('\n')
+
+
+
+### 2021_01_21
+
+1. BOJ_14888
+
+   - JS는 +0, -0 이 존재 
+
+     ```javascript
+     console.log(max ? max : 0);
+     console.log(min ? min : 0);
+     // 이런식으로 출력!
+     ```
+
+     
