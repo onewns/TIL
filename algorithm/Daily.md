@@ -307,3 +307,10 @@
    - binary search
 2. BOJ_2579
    - dp
+
+
+
+### 2021_02_02
+
+1. BOJ_1806
+   - two pointer (part sum) => 시그마 배열
