@@ -314,3 +314,5 @@
 
 1. BOJ_1806
    - two pointer (part sum) => 시그마 배열
+2. BOJ_13414
+   - readline 쓸때 '\n' 등 조심
