@@ -21,22 +21,41 @@ const state = {
       completed: false,
     },
   ],
-  filter: false
+  currentFilter: 'all'
 };
 
 const events = {
-
+  addItem: (title) => {
+    state.todos.push(
+      {
+        title,
+        completed: false
+      }
+    );
+    render(state)
+  },
+  deleteItem: (index) => {
+    state.todos.splice(index, 1);
+    render(state);
+  },
+  toggleItemCompleted: (index) => {
+    state.todos[index].completed = !state.todos[index].completed;
+    render(state);
+  },
+  changeFilter: (filter) => {
+    state.currentFilter = filter;
+    render(state)
+  }
 };
 
-const render = (element, state, events) => {
+const render = (state) => {
   window.requestAnimationFrame(() => {
-    // const main = document.querySelector('.main');
-    // const newMain = registry.renderRoot(main, state, events);
+    const element = document.querySelector('.main');
     const newElement = registry.renderRoot(element, state, events);
     element.replaceWith(newElement);
   })
 };
 
-export default (main) => {
-  render(main, state, events)
+export default () => {
+  render(state)
 };
