@@ -3,3 +3,4 @@ unsolved/
 .vscode/
 
 input.txt
+node_modules/
