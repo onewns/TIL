@@ -1,0 +1,28 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="darkmode">버튼</button>
+    <div class="test"></div>
+  </body>
+  <script>
+    const state = {
+      isDarkMode: window.matchMedia('prefers-color-scheme: dark').matches
+    }
+    const toggleDarkMode = () => {
+      state.isDarkMode = !state.isDarkMode
+      if (state.isDarkMode) {
+        document.querySelector('body').className = 'dark'
+      } else {
+        document.querySelector('body').className = ''
+      }
+      console.log(state)
+    }
+    document.querySelector('button').addEventListener('click', () => {toggleDarkMode()})
+  </script>
+</html>

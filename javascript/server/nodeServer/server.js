@@ -1,3 +1,63 @@
+const http = require('http'); // 서버 실행을 위해
+const https = require('https'); // 외부 api 요청을 위해
+
+
+http.createServer((request, response) => {
+  const { headers, method, url } = request;
+  console.log(Object.keys(request));
+  let body = []; 
+
+  if (url === '/news') { // 라우팅
+    console.log(headers, method, url)
+    const options = {
+      host: 'openapi.naver.com',
+      method: 'GET',
+      headers: {'X-Naver-Client-Id':'vRNqXlfqcbZPoZ0uZgpI', 'X-Naver-Client-Secret': '83jcRqbfA6', 'Content-Type': 'application/json'}
+    };
+
+    const req = https.request(`https://openapi.naver.com/v1/search/news.json?query=${encodeURI('머스크')}`, options, (res) => {
+      console.log(`STATUS: ${res.statusCode}`);
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        body.push(JSON.parse(chunk))
+      });
+      res.on('end', () => {
+        response.writeHead(200, {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        const responseBody = { headers, method, url, body };
+        response.end(JSON.stringify(responseBody));
+      });
+    });
+    req.on('error', (e) => {
+      console.error(`problem with request: ${e.message}`);
+    });
+
+    // Write data to request body
+    req.end();
+
+    
+  }
+  else {
+
+    request.on('error', (err) => {
+      console.error(err);
+    }).on('data', (chunk) => {
+      body.push(chunk);
+    }).on('end', () => {
+      body = Buffer.concat(body).toString();
+      
+      response.on('error', (err) => {
+        console.error(err);
+      });
+      
+      response.statusCode = 200;
+      response.setHeader('Content-Type', 'application/json');
+      const responseBody = { headers, method, url, body };
+      
+      response.end(JSON.stringify(responseBody));
+    });
+  }
+}).listen(8080);
+
 // import * as http from 'http';
 // var http = require('http')
 
@@ -161,72 +221,3 @@
 //   console.log('http://127.0.0.1:3000/search/blog?query=검색어 app listening on port 3000!');
 // });
 
-
-
-const http = require('http'); // 서버 실행을 위해
-const https = require('https'); // 외부 api 요청을 위해
-
-http.createServer((request, response) => {
-  const { headers, method, url } = request;
-  console.log(Object.keys(request));
-  let body = []; 
-
-  if (url === '/news') { // 라우팅
-    console.log(headers, method, url)
-    const options = {
-      host: 'openapi.naver.com',
-      method: 'GET',
-      headers: {'X-Naver-Client-Id':'vRNqXlfqcbZPoZ0uZgpI', 'X-Naver-Client-Secret': '83jcRqbfA6', 'Content-Type': 'application/json'}
-    };
-
-    const req = https.request(`https://openapi.naver.com/v1/search/news.json?query=${encodeURI('에스파')}`, options, (res) => {
-      console.log(`STATUS: ${res.statusCode}`);
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => {
-        body.push(JSON.parse(chunk))
-      });
-      res.on('end', () => {
-        response.writeHead(200, {'Content-Type': 'application/json'})
-        const responseBody = { headers, method, url, body };
-        response.end(JSON.stringify(responseBody));
-      });
-    });
-    req.on('error', (e) => {
-      console.error(`problem with request: ${e.message}`);
-    });
-
-    // Write data to request body
-    req.end();
-
-    
-  }
-  else {
-
-    request.on('error', (err) => {
-      console.error(err);
-    }).on('data', (chunk) => {
-      body.push(chunk);
-    }).on('end', () => {
-      body = Buffer.concat(body).toString();
-      // 여기서부터 새로운 부분입니다.
-      
-      response.on('error', (err) => {
-        console.error(err);
-      });
-      
-      response.statusCode = 200;
-      response.setHeader('Content-Type', 'application/json');
-      // 주의: 위 두 줄은 다음 한 줄로 대체할 수도 있습니다.
-      // response.writeHead(200, {'Content-Type': 'application/json'})
-      
-      const responseBody = { headers, method, url, body };
-      
-      // response.write();
-      response.end(JSON.stringify(responseBody));
-      // 주의: 위 두 줄은 다음 한 줄로 대체할 수도 있습니다.
-      // response.end(JSON.stringify(responseBody))
-      
-      // 새로운 부분이 끝났습니다.
-    });
-  }
-}).listen(8080);

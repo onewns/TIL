@@ -1,0 +1,25 @@
+.test {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
+@media screen and (max-width: 400px) {
+    .test {
+        background-color: blue;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .test {
+        background-color: violet;
+    }
+}
+
+body {
+    background-color: white;
+}
+
+body.dark {
+    background-color: black;
+}

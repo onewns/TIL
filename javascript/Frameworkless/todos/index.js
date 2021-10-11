@@ -13,4 +13,4 @@ main.innerHTML = header;
 makeComponent('div', 'todos');
 makeComponent('div', 'todoFilter');
 
-app(main)
+app()

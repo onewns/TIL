@@ -2,6 +2,15 @@
 
 
 
+### createServer
+
+> return <http.Server>
+
+- l
+- request
+  - 
+- response
+
 ### typescript 적용하기
 
 http://cosmiclatte.co.kr/nodejs-%EC%97%90%EC%84%9C-%ED%83%80%EC%9E%85%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8typescript-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/

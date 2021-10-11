@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IntersectionObserver</title>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    .box {
+      margin: 50px auto;
+      width: 500px;
+      height: 250px;
+      background: rgb(219, 222, 228);
+      box-shadow: 5px 5px 15px lightgrey;
+      opacity: 0;
+      transition: 500ms;
+      font-size: 3rem;
+    }
+
+    .loading {
+      font-size: 10rem;
+      display: none;
+    }
+
+  </style>
+
+</head>
+<body>
+  <a href="https://github.com/wonjun9090">my github</a>
+  <div class="box-container"></div>
+  <div class="loading">Loading</div>
+
+  <script>
+    const container = document.querySelector('.box-container');
+    const loading = document.querySelector('.loading');
+    const observer = createIntersectionObserver();
+    useInfiniteLoader(document.body, inifiniteLoaderHander);
+
+    function createIntersectionObserver() {
+
+      const logFormat = (id, isIntersecting, intersectionRect) => `
+          id: ${id}
+          isIntersecting: ${isIntersecting}
+          intersectionRect: ${intersectionRect}
+        `;
+
+      const callback = (entries, observer) => {
+        entries.forEach(({ target, isIntersecting, intersectionRect }) => console.log(logFormat(target.innerText, isIntersecting, intersectionRect)));
+        console.log('------------------------------------------------');
+
+        entries.forEach(({ target, isIntersecting }) => {
+          if (isIntersecting) {
+            target.style.opacity = 1;
+            // observer.unobserve(target);
+          }
+        });
+      }
+      return new IntersectionObserver(callback, { threshold: 1 });
+    }
+
+    function useInfiniteLoader(parent, handler) {
+      const loader = document.createElement('div');
+      loader.id = 'infinite-loader';
+      parent.append(loader);
+
+      const callback = async ([{ target, isIntersecting }], observer) => {
+          if (isIntersecting) {
+            console.log('loading start');
+            observer.unobserve(target);
+            await handler();
+            observer.observe(target);
+            console.log('loading end');
+          }
+      };
+
+      const observer = new IntersectionObserver(callback, { threshold: 1 });
+      observer.observe(loader);
+    }
+
+    async function inifiniteLoaderHander() {
+      loading.style.display = 'block';
+      const data = await fetchDummyData();
+      updateBox(data);
+      loading.style.display = 'none';
+    }
+
+    function fetchDummyData() {
+      return new Promise(resolve => {
+        setTimeout(() => resolve([1, 2, 3, 4, 5]), 2000);
+      });
+    }
+
+    function updateBox(data) {
+      const fragment = document.createDocumentFragment();
+      data.forEach(id => {
+        const box = createBox(id);
+        fragment.append(box);
+        observer.observe(box);
+      });
+      container.append(fragment);
+    }
+
+    function createBox(id) {
+      const box = document.createElement('div');
+      box.className = 'box';
+      box.innerText = id;
+      return box;
+    }
+
+  </script>
+</body>
+</html>
